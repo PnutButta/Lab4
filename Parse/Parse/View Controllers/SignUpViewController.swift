@@ -14,14 +14,13 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
-    let signUpErrorAlert = UIAlertController(title: "Sign Up Error", message: "Try Again", preferredStyle: .alert)
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // create an OK action & add the OK action to the alert controller
-        let OKAction = UIAlertAction(title: "OK", style: .cancel) { (action) in }
-        signUpErrorAlert.addAction(OKAction)
+        
         
         // Do any additional setup after loading the view.
     }
@@ -49,10 +48,18 @@ class SignUpViewController: UIViewController {
         newUser.signUpInBackground { (success: Bool, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
-                self.present(self.signUpErrorAlert, animated: true)
+                
+                // Error Alert
+                 let signUpErrorAlert = UIAlertController(title: "Sign Up Error", message: error.localizedDescription, preferredStyle: .alert)
+                let OKAction = UIAlertAction(title: "OK", style: .cancel) { (action) in }
+                signUpErrorAlert.addAction(OKAction)
+                // Present alert
+                self.present(signUpErrorAlert, animated: true)
+                
             } else {
                 print("User Registered successfully")
                 // manually segue to logged in view
+                self.performSegue(withIdentifier: "signupSegue", sender: nil)
             }
         }
     }

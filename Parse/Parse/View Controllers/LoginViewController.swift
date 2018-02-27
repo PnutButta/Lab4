@@ -16,7 +16,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var missingAlert: UILabel!
     
     let missingFieldAlert = UIAlertController(title: "Fields Required", message: "Missing Username or Password", preferredStyle: .alert)
-    let loginErrorAlert = UIAlertController(title: "Login Error", message: "Try Again", preferredStyle: .alert)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +23,6 @@ class LoginViewController: UIViewController {
         // create an OK action & add the OK action to the alert controller
         let OKAction = UIAlertAction(title: "OK", style: .cancel) { (action) in }
         missingFieldAlert.addAction(OKAction)
-        loginErrorAlert.addAction(OKAction)
         
     }
 
@@ -47,13 +45,21 @@ class LoginViewController: UIViewController {
         PFUser.logInWithUsername(inBackground: username, password: password) { (user: PFUser?, error: Error?) in
             if let error = error {
                 print("User log in failed: \(error.localizedDescription)")
-                self.present(self.loginErrorAlert, animated: true)
+                
+                // Error Alert
+                let loginErrorAlert = UIAlertController(title: "Try Again", message: error.localizedDescription, preferredStyle: .alert)
+                let OKAction = UIAlertAction(title: "OK", style: .cancel) { (action) in }
+                loginErrorAlert.addAction(OKAction)
+                // Present Alert
+                self.present(loginErrorAlert, animated: true)
+                
                 self.usernameField.text = ""
                 self.passwordField.text = ""
                 
             } else {
                 print("User logged in successfully")
                 // display view controller that needs to shown after successful login
+                self.performSegue(withIdentifier: "loginSegue", sender: nil)
             }
         }
     }
