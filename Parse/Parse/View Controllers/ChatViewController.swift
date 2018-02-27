@@ -9,18 +9,42 @@
 import UIKit
 import Parse
 
-class ChatViewController: UIViewController {
-
+class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
     @IBOutlet weak var chatMessageField: UITextField!
+    @IBOutlet weak var messageTableView: UITableView!
+    
+    var message: String!
+    var refresh: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        messageTableView.delegate = self
+        messageTableView.dataSource = self
+        
+        
+        // Auto size row height based on cell autolayout constraints
+        messageTableView.rowHeight = UITableViewAutomaticDimension
+        // Provide an estimated row height. Used for calculating scroll indicator
+        messageTableView.estimatedRowHeight = 50
+        
+        refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(ChatViewController.pullToRefresh(_:)),
+                          for: .valueChanged)
+        messageTableView.insertSubview(refresh, at: 0)
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.pullToRefresh(_:)), userInfo: nil, repeats: true)
 
-        // Do any additional setup after loading the view.
     }
+    
+    @objc func  pullToRefresh(_ refresh: UIRefreshControl) {
+        
+    }
+    
     @IBAction func sendMessage(_ sender: UIButton) {
         let chatMessage = PFObject(className: "Message")
         chatMessage["text"] = chatMessageField.text ?? ""
+        message = chatMessage["text"] as! String
+        
         chatMessage.saveInBackground { (success, error) in
             if success {
                 print("The message was saved!")
@@ -31,9 +55,33 @@ class ChatViewController: UIViewController {
         }
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! ChatCell
+        // add saved messages to tableview
+        return cell
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func fetchMessages() {
+      /*  let post = Post()
+        var query = post.query()
+        query.getObjectInBackgroundWithId("imkmJsHVIH") {
+            (post: PFObject?, error: NSError?) -> Void in
+            if error == nil && gameScore != nil {
+                print(post)
+            } else {
+                print(error)
+            }
+        }
+        query.addDescendingOrder("createdAt")*/
     }
     
 

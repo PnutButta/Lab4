@@ -10,6 +10,7 @@
 		0F8793672045A7CD00880C22 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8793662045A7CD00880C22 /* LoginViewController.swift */; };
 		0F8793692045A7DC00880C22 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8793682045A7DC00880C22 /* SignUpViewController.swift */; };
 		0F87936C2045BD9200880C22 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F87936B2045BD9200880C22 /* ChatViewController.swift */; };
+		0F87936E2045C30800880C22 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F87936D2045C30800880C22 /* ChatCell.swift */; };
 		0FFC172D2044E90200D2C02F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFC172C2044E90200D2C02F /* AppDelegate.swift */; };
 		0FFC17322044E90200D2C02F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FFC17302044E90200D2C02F /* Main.storyboard */; };
 		0FFC17342044E90200D2C02F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FFC17332044E90200D2C02F /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 		0F8793662045A7CD00880C22 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0F8793682045A7DC00880C22 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		0F87936B2045BD9200880C22 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		0F87936D2045C30800880C22 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		0FFC17292044E90200D2C02F /* ParseChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ParseChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FFC172C2044E90200D2C02F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FFC17312044E90200D2C02F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			children = (
 				0F87936A2045BD6500880C22 /* View Controllers */,
 				0FFC172C2044E90200D2C02F /* AppDelegate.swift */,
+				0F87936D2045C30800880C22 /* ChatCell.swift */,
 				0FFC17302044E90200D2C02F /* Main.storyboard */,
 				0FFC17332044E90200D2C02F /* Assets.xcassets */,
 				0FFC17352044E90200D2C02F /* LaunchScreen.storyboard */,
@@ -477,6 +480,7 @@
 				0F8793692045A7DC00880C22 /* SignUpViewController.swift in Sources */,
 				0F8793672045A7CD00880C22 /* LoginViewController.swift in Sources */,
 				0F87936C2045BD9200880C22 /* ChatViewController.swift in Sources */,
+				0F87936E2045C30800880C22 /* ChatCell.swift in Sources */,
 				0FFC172D2044E90200D2C02F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
