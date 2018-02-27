@@ -6,6 +6,7 @@ target 'Parse' do
   use_frameworks!
 
   # Pods for Parse
+  pod 'Parse'
 
   target 'ParseTests' do
     inherit! :search_paths
