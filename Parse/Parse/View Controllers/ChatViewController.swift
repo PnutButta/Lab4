@@ -26,7 +26,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Auto size row height based on cell autolayout constraints
         messageTableView.rowHeight = UITableViewAutomaticDimension
         // Provide an estimated row height. Used for calculating scroll indicator
-        messageTableView.estimatedRowHeight = 50
+        messageTableView.estimatedRowHeight = 60
         
         refresh = UIRefreshControl()
         refresh.addTarget(self, action: #selector(ChatViewController.pullToRefresh(_:)),
@@ -61,7 +61,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! ChatCell
-        // add saved messages to tableview
+        // add saved messages to tableview ? cell.messageLabel
         return cell
     }
     
@@ -71,7 +71,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func fetchMessages() {
-      /*  let post = Post()
+      /*let post = Post()
         var query = post.query()
         query.getObjectInBackgroundWithId("imkmJsHVIH") {
             (post: PFObject?, error: NSError?) -> Void in
@@ -81,7 +81,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 print(error)
             }
         }
-        query.addDescendingOrder("createdAt")*/
+        query.addDescendingOrder("createdAt") */
     }
     
 
