@@ -21,6 +21,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 configuration.server = "http://45.79.67.127:1337/parse"
             }))
         // Override point for customization after application launch.
+        
+        if let currentUser = PFUser.current() {
+            print("Welcome back \(currentUser.username!) 😀")
+                
+            // Load Chat view controller and set as root view controller
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let chatViewController = storyboard.instantiateViewController(withIdentifier: "chatNav")
+            window?.rootViewController = chatViewController
+        }
+        
         return true
     }
 

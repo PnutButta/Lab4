@@ -130,9 +130,9 @@
 		0FFC172B2044E90200D2C02F /* Parse */ = {
 			isa = PBXGroup;
 			children = (
+				0F87936D2045C30800880C22 /* ChatCell.swift */,
 				0F87936A2045BD6500880C22 /* View Controllers */,
 				0FFC172C2044E90200D2C02F /* AppDelegate.swift */,
-				0F87936D2045C30800880C22 /* ChatCell.swift */,
 				0FFC17302044E90200D2C02F /* Main.storyboard */,
 				0FFC17332044E90200D2C02F /* Assets.xcassets */,
 				0FFC17352044E90200D2C02F /* LaunchScreen.storyboard */,
