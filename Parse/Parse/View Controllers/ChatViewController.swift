@@ -20,14 +20,14 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        messageTableView.separatorStyle = .none
         messageTableView.delegate = self
         messageTableView.dataSource = self
         
         
         // Auto size row height based on cell autolayout constraints
-       // messageTableView.rowHeight = UITableViewAutomaticDimension
-      //  messageTableView.estimatedRowHeight = 100
-        messageTableView.rowHeight = 80
+        messageTableView.rowHeight = UITableViewAutomaticDimension
+        messageTableView.estimatedRowHeight = 100
 
         refresh = UIRefreshControl()
         messageTableView.insertSubview(refresh, at: 0)
