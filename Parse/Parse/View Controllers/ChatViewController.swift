@@ -14,6 +14,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var chatMessageField: UITextField!
     @IBOutlet weak var messageTableView: UITableView!
     
+    var parseMessages: [PFObject] = []
     var message: String!
     var refresh: UIRefreshControl!
     
@@ -24,26 +25,29 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
         // Auto size row height based on cell autolayout constraints
-        messageTableView.rowHeight = UITableViewAutomaticDimension
-        // Provide an estimated row height. Used for calculating scroll indicator
-        messageTableView.estimatedRowHeight = 73
-        
+       // messageTableView.rowHeight = UITableViewAutomaticDimension
+      //  messageTableView.estimatedRowHeight = 100
+        messageTableView.rowHeight = 80
+
         refresh = UIRefreshControl()
-        refresh.addTarget(self, action: #selector(ChatViewController.pullToRefresh(_:)),
-                          for: .valueChanged)
         messageTableView.insertSubview(refresh, at: 0)
-        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.pullToRefresh(_:)), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(toRefresh), userInfo: nil, repeats: true)
 
     }
     
-    @objc func  pullToRefresh(_ refresh: UIRefreshControl) {
-        
+    @objc func toRefresh() {
+        fetchMessages()
+        self.messageTableView.reloadData()
     }
     
     @IBAction func sendMessage(_ sender: UIButton) {
         let chatMessage = PFObject(className: "Message")
+        
+        if let currentUser = PFUser.current() {
+             chatMessage["user"] = currentUser
+        }
+       
         chatMessage["text"] = chatMessageField.text ?? ""
-        message = chatMessage["text"] as! String
         
         chatMessage.saveInBackground { (success, error) in
             if success {
@@ -56,12 +60,25 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return parseMessages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! ChatCell
+        
         // add saved messages to tableview ? cell.messageLabel
+        let message = parseMessages[indexPath.row]
+        cell.messageLabel.text = message["text"] as! String!
+
+        if let user = message["user"] as? PFUser {
+            // User found! update username label with username
+            cell.userLabel.text = user.username
+        } else {
+            // No user found, set default username
+            cell.userLabel.text = "🤖"
+        }
+
+
         return cell
     }
     
@@ -71,20 +88,28 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func fetchMessages() {
-      /*let post = Post()
-        var query = post.query()
-        query.getObjectInBackgroundWithId("imkmJsHVIH") {
-            (post: PFObject?, error: NSError?) -> Void in
-            if error == nil && gameScore != nil {
-                print(post)
+        let query = PFQuery(className: "Message")
+        query.addDescendingOrder("createdAt")
+        query.includeKey("user")
+        
+        query.findObjectsInBackground(){
+            (messages: [PFObject]?, error: Error?) in
+            if error == nil {
+                if let messages = messages {
+                    self.parseMessages = messages
+                }
             } else {
-                print(error)
+                print(error?.localizedDescription)
             }
         }
-        query.addDescendingOrder("createdAt") */
     }
     
 
+    @IBAction func toLogout(_ sender: UIBarButtonItem) {
+        PFUser.logOut()
+        performSegue(withIdentifier: "backLogin", sender: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
